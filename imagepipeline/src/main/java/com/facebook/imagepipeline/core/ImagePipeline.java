@@ -110,6 +110,7 @@ public class ImagePipeline {
     return String.valueOf(mIdCounter.getAndIncrement());
   }
 
+  //region getDataSourceSupplier
   /**
    * Returns a DataSource supplier that will on get submit the request for execution and return a
    * DataSource representing the pending results of the task.
@@ -194,6 +195,7 @@ public class ImagePipeline {
       }
     };
   }
+  //endregion
 
   /**
    * Returns a DataSource supplier that will on get submit the request for execution and return a
@@ -231,6 +233,7 @@ public class ImagePipeline {
         imageRequest, callerContext, ImageRequest.RequestLevel.BITMAP_MEMORY_CACHE);
   }
 
+  //region fetchDecodedImage
   /**
    * Submits a request for execution and returns a DataSource representing the pending decoded
    * image(s).
@@ -336,7 +339,9 @@ public class ImagePipeline {
       return DataSources.immediateFailedDataSource(exception);
     }
   }
+  //endregion
 
+  //region fetchEncodedImage
   /**
    * Submits a request for execution and returns a DataSource representing the pending encoded
    * image(s).
@@ -390,7 +395,9 @@ public class ImagePipeline {
       return DataSources.immediateFailedDataSource(exception);
     }
   }
+  //endregion
 
+  //region prefetch
   /**
    * Submits a request for prefetching to the bitmap cache.
    *
@@ -521,7 +528,9 @@ public class ImagePipeline {
       return DataSources.immediateFailedDataSource(exception);
     }
   }
+  //endregion
 
+  //region evict
   /**
    * Removes all images with the specified {@link Uri} from memory cache.
    *
@@ -567,6 +576,7 @@ public class ImagePipeline {
     evictFromMemoryCache(uri);
     evictFromDiskCache(uri);
   }
+  //endregion
 
   /** Clear the memory caches */
   public void clearMemoryCaches() {
@@ -602,6 +612,7 @@ public class ImagePipeline {
     clearDiskCaches();
   }
 
+  //region check or get bitmap memory cache
   /**
    * Returns whether the image is stored in the bitmap memory cache.
    *
@@ -639,7 +650,9 @@ public class ImagePipeline {
       CloseableReference.closeSafely(ref);
     }
   }
+  //endregion
 
+  //region isInDiskCache
   /**
    * Returns whether the image is stored in the disk cache. Performs disk cache check synchronously.
    * It is not recommended to use this unless you know what exactly you are doing. Disk cache check
@@ -737,6 +750,8 @@ public class ImagePipeline {
             });
     return dataSource;
   }
+  //endregion
+
   /** @return {@link CacheKey} for doing bitmap cache lookups in the pipeline. */
   @Nullable
   public CacheKey getCacheKey(@Nullable ImageRequest imageRequest, Object callerContext) {
