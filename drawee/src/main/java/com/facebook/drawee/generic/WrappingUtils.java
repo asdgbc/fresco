@@ -235,6 +235,9 @@ public class WrappingUtils {
   }
 
   /**
+   * 使用RoundedBitmapDrawable、RoundedNinePatchDrawable、RoundedColorDrawable对Drawable进行
+   * 包装并重新设置回Parent
+   *
    * Applies rounding on the drawable's leaf.
    *
    * <p>Currently only {@link BitmapDrawable} or {@link ColorDrawable} leafs can be rounded.
@@ -263,6 +266,8 @@ public class WrappingUtils {
         return drawable;
       }
       if (drawable instanceof ForwardingDrawable) {
+        //真正的Drawable可能被多次包装，这里取出真正Drawable的第一层parent
+        //然后对Drawable进行包装，并重新设置回parent
         DrawableParent parent = findDrawableParentForLeaf((ForwardingDrawable) drawable);
         Drawable child = parent.setDrawable(sEmptyDrawable);
         child = applyLeafRounding(child, roundingParams, resources);

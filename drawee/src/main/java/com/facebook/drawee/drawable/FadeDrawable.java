@@ -144,6 +144,7 @@ public class FadeDrawable extends ArrayDrawable {
     invalidateSelf();
   }
 
+  //region fade
   /**
    * Starts fading in the specified layer.
    *
@@ -205,7 +206,9 @@ public class FadeDrawable extends ArrayDrawable {
     Arrays.fill(mIsLayerOn, index + 1, mLayers.length, false);
     invalidateSelf();
   }
+  //endregion
 
+  //region show/hide layer
   /**
    * Makes the specified layer fully opaque
    *
@@ -227,6 +230,7 @@ public class FadeDrawable extends ArrayDrawable {
     mAlphas[index] = 0;
     invalidateSelf();
   }
+  //endregion
 
   /** Finishes transition immediately. */
   public void finishTransitionImmediately() {

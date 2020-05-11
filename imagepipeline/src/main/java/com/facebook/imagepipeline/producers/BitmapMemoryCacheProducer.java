@@ -36,6 +36,16 @@ public class BitmapMemoryCacheProducer implements Producer<CloseableReference<Cl
     mInputProducer = inputProducer;
   }
 
+  /**
+   * 1.获取图片缓存，成功则直接回调并返回，失败则进入第二步
+   * 2.查看LowestPermittedRequestLevel，如果小于
+   * {@link com.facebook.imagepipeline.request.ImageRequest.RequestLevel#BITMAP_MEMORY_CACHE}，
+   * 则使用空值回调Consumer，否则进入第三步
+   * 3.使用{@link #wrapConsumer(Consumer, CacheKey, boolean)}对Consumer进行包装，然后调用
+   * inputProducer的produceResult方法
+   * @param consumer
+   * @param producerContext
+   */
   @Override
   public void produceResults(
       final Consumer<CloseableReference<CloseableImage>> consumer,
@@ -109,6 +119,7 @@ public class BitmapMemoryCacheProducer implements Producer<CloseableReference<Cl
     }
   }
 
+  //
   protected Consumer<CloseableReference<CloseableImage>> wrapConsumer(
       final Consumer<CloseableReference<CloseableImage>> consumer,
       final CacheKey cacheKey,

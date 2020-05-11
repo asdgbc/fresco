@@ -127,8 +127,8 @@ public class GenericDraweeHierarchy implements SettableDraweeHierarchy {
             builder.getActualImageColorFilter());
     layers[PROGRESS_BAR_IMAGE_INDEX] =
         buildBranch(builder.getProgressBarImage(), builder.getProgressBarImageScaleType());
-    layers[RETRY_IMAGE_INDEX] =
-        buildBranch(builder.getRetryImage(), builder.getRetryImageScaleType());
+    layers[RETRY_IMAGE_INDEX] = buildBranch(builder.getRetryImage(),
+            builder.getRetryImageScaleType());
     layers[FAILURE_IMAGE_INDEX] =
         buildBranch(builder.getFailureImage(), builder.getFailureImageScaleType());
     if (numOverlays > 0) {
@@ -178,7 +178,9 @@ public class GenericDraweeHierarchy implements SettableDraweeHierarchy {
   @Nullable
   private Drawable buildBranch(
       @Nullable Drawable drawable, @Nullable ScalingUtils.ScaleType scaleType) {
+    //使用RoundedBitmapDrawable、RoundedNinePatchDrawable、RoundedColorDrawable对Drawable进行包装
     drawable = WrappingUtils.maybeApplyLeafRounding(drawable, mRoundingParams, mResources);
+    //
     drawable = WrappingUtils.maybeWrapWithScaleType(drawable, scaleType);
     return drawable;
   }
@@ -313,7 +315,7 @@ public class GenericDraweeHierarchy implements SettableDraweeHierarchy {
     mTopLevelDrawable.setControllerOverlay(drawable);
   }
 
-  // Helper methods for accessing layers
+  //region Helper methods for accessing layers
 
   /**
    * Gets the lowest parent drawable for the layer at the specified index.
@@ -366,9 +368,11 @@ public class GenericDraweeHierarchy implements SettableDraweeHierarchy {
     DrawableParent parent = getParentDrawableAtIndex(index);
     return (parent instanceof ScaleTypeDrawable);
   }
+  //endregion
 
   // Mutability
 
+  //region get/set各个layer的Drawable，以及各layer的一些属性控制
   /** Sets the fade duration. */
   public void setFadeDuration(int durationMs) {
     mFadeDrawable.setTransitionDuration(durationMs);
@@ -578,6 +582,7 @@ public class GenericDraweeHierarchy implements SettableDraweeHierarchy {
   public RoundingParams getRoundingParams() {
     return mRoundingParams;
   }
+  //endregion
 
   @VisibleForTesting
   public boolean hasImage() {

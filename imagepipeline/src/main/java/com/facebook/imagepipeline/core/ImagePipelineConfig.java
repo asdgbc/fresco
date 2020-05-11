@@ -74,23 +74,33 @@ public class ImagePipelineConfig {
   // on demand if needed.
 
   // There are a lot of parameters in this class. Please follow strict alphabetical order.
+  //ARGB_8888
   private final Bitmap.Config mBitmapConfig;
+  //DefaultBitmapMemoryCacheParamsSupplier
   private final Supplier<MemoryCacheParams> mBitmapMemoryCacheParamsSupplier;
+  //BitmapMemoryCacheTrimStrategy
   private final CountingMemoryCache.CacheTrimStrategy mBitmapMemoryCacheTrimStrategy;
+  //DefaultCacheKeyFactory.getInstance()
   private final CacheKeyFactory mCacheKeyFactory;
   private final Context mContext;
   private final boolean mDownsampleEnabled;
+  //new DiskStorageCacheFactory(new DynamicDefaultDiskStorageFactory())
   private final FileCacheFactory mFileCacheFactory;
+  //DefaultEncodedMemoryCacheParamsSupplier
   private final Supplier<MemoryCacheParams> mEncodedMemoryCacheParamsSupplier;
   private final ExecutorSupplier mExecutorSupplier;
+  //NoOpImageCacheStatsTracker.getInstance()
   private final ImageCacheStatsTracker mImageCacheStatsTracker;
   @Nullable private final ImageDecoder mImageDecoder;
   @Nullable private final ImageTranscoderFactory mImageTranscoderFactory;
   @Nullable @ImageTranscoderType private final Integer mImageTranscoderType;
   private final Supplier<Boolean> mIsPrefetchEnabledSupplier;
+  //DiskCacheConfig
   private final DiskCacheConfig mMainDiskCacheConfig;
+  //NoOpMemoryTrimmableRegistry
   private final MemoryTrimmableRegistry mMemoryTrimmableRegistry;
   @MemoryChunkType private final int mMemoryChunkType;
+  //HttpUrlConnectionNetworkFetcher
   private final NetworkFetcher mNetworkFetcher;
   private final int mHttpNetworkTimeout;
   @Nullable private final PlatformBitmapFactory mPlatformBitmapFactory;
